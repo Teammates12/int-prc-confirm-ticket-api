@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.bms.com/ConfirmTicket/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ConfirmTicket" targetNamespace="http://www.bms.com/ConfirmTicket/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.bms.com/ConfirmTicket/">
+      <xsd:element name="ConfirmMovieTicket">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="BID" type="xsd:string"></xsd:element>
+      			<xsd:element name="TotalPrice" type="xsd:string"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConfirmMovieTicketResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="StatusCode" type="xsd:string"></xsd:element>
+      			<xsd:element name="Description" type="xsd:string"></xsd:element>
+      			<xsd:element name="TxID" type="xsd:string"
+      				maxOccurs="1" minOccurs="0">
+      			</xsd:element>
+      			<xsd:element name="BookingId" type="xsd:string"></xsd:element>
+      			<xsd:element name="MovieName" type="xsd:string"></xsd:element>
+      			<xsd:element name="TheatreName" type="xsd:string"></xsd:element>
+      			<xsd:element name="Date" type="xsd:string"></xsd:element>
+      			<xsd:element name="Slot" type="xsd:string"></xsd:element>
+      			<xsd:element name="NoOfSeats" type="xsd:string"></xsd:element>
+      			<xsd:element name="Address" type="xsd:string"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ConfirmMovieTicketRequest">
+    <wsdl:part element="tns:ConfirmMovieTicket" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ConfirmMovieTicketResponse">
+    <wsdl:part element="tns:ConfirmMovieTicketResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="ConfirmTicket">
+    <wsdl:operation name="ConfirmMovieTicket">
+      <wsdl:input message="tns:ConfirmMovieTicketRequest"/>
+      <wsdl:output message="tns:ConfirmMovieTicketResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ConfirmTicketSOAP" type="tns:ConfirmTicket">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ConfirmMovieTicket">
+      <soap:operation soapAction="http://www.bms.com/ConfirmTicket/ConfirmMovieTicket"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ConfirmTicket">
+    <wsdl:port binding="tns:ConfirmTicketSOAP" name="ConfirmTicket">
+      <soap:address location="http://localhost:8081/order/confirmticket"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
